@@ -1,0 +1,42 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Hello Coder",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/server",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "HELLO_CODER_MODE": "server",
+        "HELLO_CODER_ADDR": ":10240",
+        "HELLO_CODER_DATA_DIR": "${workspaceFolder}/data",
+        "HELLO_CODER_STATIC_DIR": "${workspaceFolder}/web/static"
+      },
+      "console": "integratedTerminal",
+      "backend": "default",
+      "showLog": true,
+      "args": [],
+      "dlvFlags": ["--check-go-version=false"]
+    },
+    {
+      "name": "Hello Coder (desktop)",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/server",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "HELLO_CODER_MODE": "desktop",
+        "HELLO_CODER_DATA_DIR": "${workspaceFolder}/data",
+        "HELLO_CODER_STATIC_DIR": "${workspaceFolder}/web/static"
+      },
+      "console": "integratedTerminal",
+      "backend": "default",
+      "showLog": true,
+      "args": [],
+      "dlvFlags": ["--check-go-version=false"]
+    }
+  ]
+}

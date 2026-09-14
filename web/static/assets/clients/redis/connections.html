@@ -1,0 +1,98 @@
+<section id="view-redis" class="view">
+  <header class="view-head">
+    <div>
+      <h2>Redis Connections</h2>
+      <p class="muted">Manage RDS connections · standalone / cluster / sentinel</p>
+    </div>
+    <div class="actions">
+      <button type="button" id="btn-refresh-conns" class="btn ghost">Refresh</button>
+      <button type="button" id="btn-add-conn" class="btn">New connection</button>
+    </div>
+  </header>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Mode</th>
+          <th>Addresses</th>
+          <th>Version</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="conn-tbody">
+        <tr><td colspan="6" class="empty">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<dialog id="dlg-conn" class="dialog">
+  <form method="dialog" id="form-conn" class="dialog-body">
+    <h3 id="dlg-conn-title">New connection</h3>
+    <input type="hidden" id="conn-id" />
+
+    <div class="form-section">
+      <div class="form-section-title">基本信息</div>
+      <label class="field"><span>Name <em class="req">*</em></span><input id="conn-name" required autocomplete="off" /></label>
+      <label class="field">
+        <span>Mode <em class="req">*</em></span>
+        <select id="conn-mode" required>
+          <option value="standalone">Standalone（单点）</option>
+          <option value="cluster">Cluster（集群）</option>
+          <option value="sentinel">Sentinel（哨兵）</option>
+        </select>
+      </label>
+      <label class="field"><span>Username</span><input id="conn-user" placeholder="optional (ACL)" autocomplete="off" /></label>
+      <label class="field"><span>Password</span><input id="conn-pass" type="password" placeholder="leave blank to keep unchanged" autocomplete="new-password" /></label>
+      <label class="field"><span>Description</span><input id="conn-desc" /></label>
+    </div>
+
+    <div class="form-section" data-mode-panel="standalone">
+      <div class="form-section-title">Standalone 连接</div>
+      <p class="field-hint muted">填写 Redis 数据节点地址（通常 6379），不要填 Sentinel / 集群代理端口。</p>
+      <label class="field">
+        <span>Address <em class="req">*</em></span>
+        <input id="conn-addr-standalone" placeholder="127.0.0.1:6379" autocomplete="off" />
+      </label>
+      <label class="field">
+        <span>DB</span>
+        <input id="conn-db-standalone" type="number" min="0" value="0" />
+      </label>
+    </div>
+
+    <div class="form-section" data-mode-panel="cluster" hidden>
+      <div class="form-section-title">Cluster 连接</div>
+      <p class="field-hint muted">填写集群 Seed 节点，逗号分隔。DB 固定为 0（与 ARDM Cluster 一致）。</p>
+      <label class="field">
+        <span>Seed nodes <em class="req">*</em></span>
+        <input id="conn-addr-cluster" placeholder="127.0.0.1:7000,127.0.0.1:7001" autocomplete="off" />
+      </label>
+    </div>
+
+    <div class="form-section" data-mode-panel="sentinel" hidden>
+      <div class="form-section-title">Sentinel 连接</div>
+      <p class="field-hint muted">填写 Sentinel 地址（常见 26379）和 Master name，不要只填数据节点地址。</p>
+      <label class="field">
+        <span>Sentinel addresses <em class="req">*</em></span>
+        <input id="conn-addr-sentinel" placeholder="127.0.0.1:26379,127.0.0.1:26380" autocomplete="off" />
+      </label>
+      <label class="field">
+        <span>Master name <em class="req">*</em></span>
+        <input id="conn-master" placeholder="mymaster" autocomplete="off" />
+      </label>
+      <label class="field">
+        <span>DB</span>
+        <input id="conn-db-sentinel" type="number" min="0" value="0" />
+      </label>
+    </div>
+
+    <p id="conn-msg" class="msg" hidden></p>
+    <div class="dialog-actions">
+      <button type="button" class="btn ghost" id="conn-cancel" value="cancel">Cancel</button>
+      <button type="button" class="btn ghost" id="conn-test">Test</button>
+      <button type="submit" class="btn" id="conn-save">Save</button>
+    </div>
+  </form>
+</dialog>

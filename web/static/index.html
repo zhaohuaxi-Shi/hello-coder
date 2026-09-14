@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello Coder</title>
+  <link rel="icon" href="/assets/images/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/images/app-icon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/app.css" />
+</head>
+<body class="page-login">
+  <main class="login-layout">
+    <aside class="login-visual" aria-hidden="true">
+      <img src="/assets/images/login-bg.png" alt="" />
+    </aside>
+    <section class="login-aside">
+      <div class="panel" aria-label="Sign in or register">
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab is-active" data-tab="login" role="tab" aria-selected="true">Sign in</button>
+          <button type="button" class="tab" data-tab="register" role="tab" aria-selected="false">Register</button>
+        </div>
+
+        <form id="auth-form" class="form" autocomplete="on">
+          <label class="field">
+            <span>Username</span>
+            <input id="username" name="username" type="text" maxlength="32" required placeholder="letters / digits / underscore" />
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input id="password" name="password" type="password" minlength="6" required placeholder="at least 6 characters" />
+          </label>
+          <p id="msg" class="msg" hidden></p>
+          <button id="submit" type="submit" class="btn">Sign in</button>
+        </form>
+        <p id="app-version" class="login-version" hidden></p>
+      </div>
+    </section>
+  </main>
+  <script src="/assets/auth.js"></script>
+</body>
+</html>

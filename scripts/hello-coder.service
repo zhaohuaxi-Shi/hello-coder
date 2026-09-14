@@ -1,0 +1,17 @@
+[Unit]
+Description=Hello Coder
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/hello-coder
+WorkingDirectory=/var/lib/hello-coder
+Environment=HELLO_CODER_MODE=server
+Environment=HELLO_CODER_ADDR=:10240
+Environment=HELLO_CODER_DATA_DIR=/var/lib/hello-coder
+# Environment=HELLO_CODER_JWT_SECRET=change-me
+# Environment=HELLO_CODER_DATA_KEY=change-me
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

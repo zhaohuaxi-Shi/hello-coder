@@ -1,0 +1,37 @@
+# Binaries
+/bin/
+/dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+hello-coder
+hello-coder.exe
+
+# Runtime data: SQLite, RSA key, logs, WebView2 profile (never commit)
+/data/*
+!/data/.gitkeep
+
+# Frontend
+/web/node_modules/
+/web/dist/
+/web/.vite/
+
+# IDE / OS
+.idea/
+.vscode/*
+!.vscode/launch.json
+*.swp
+.DS_Store
+Thumbs.db
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Go
+/vendor/
+coverage.out
+*.test

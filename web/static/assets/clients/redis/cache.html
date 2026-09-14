@@ -1,0 +1,78 @@
+<section id="view-redis-cache" class="view cache-view">
+  <header class="view-head">
+    <div class="view-title-row">
+      <button type="button" id="btn-back-conns" class="back-btn" title="Back" aria-label="Back">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M15.5 5.5 9 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div>
+        <h2 id="cache-title">Cache</h2>
+        <p class="muted" id="cache-sub"></p>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" id="btn-refresh-cache" class="btn ghost">Refresh</button>
+    </div>
+  </header>
+
+  <div class="cache-layout">
+    <aside class="cache-left">
+      <div class="cache-left-top">
+        <label class="field cache-db-field"> 
+          <select id="cache-db"></select>
+        </label>
+        <div class="cache-search-row">
+          <label class="field cache-search-field">
+            <input id="cache-search" type="search" placeholder="Enter keyword and press Enter…" autocomplete="off" />
+          </label>
+          <button type="button" class="btn" id="btn-key-add">Add</button>
+        </div>
+      </div>
+      <div class="cache-left-toolbar">
+        <div class="cache-del-group">
+          <label class="cache-select-mode" title="勾选后显示 key 复选框">
+            <input type="checkbox" id="cache-select-mode" />
+          </label>
+          <button type="button" class="btn ghost danger-text" id="btn-key-del">Delete</button>
+        </div>
+        <button type="button" class="btn ghost" id="btn-key-more" disabled>Load more</button>
+      </div>
+      <p id="cache-list-hint" class="cache-list-hint muted" hidden></p>
+      <div id="cache-tree" class="cache-tree" tabindex="0">
+        <div class="empty">Loading…</div>
+      </div>
+    </aside>
+
+    <section class="cache-right">
+      <div id="cache-tabs" class="cache-tabs" hidden></div>
+      <div id="cache-empty" class="cache-empty">
+        <p class="muted">Select a key to view its value. Double-click to open in a new tab.</p>
+      </div>
+      <div id="cache-panels" class="cache-panels" hidden></div>
+    </section>
+  </div>
+</section>
+
+<dialog id="dlg-key-add" class="dialog">
+  <form method="dialog" id="form-key-add" class="dialog-body">
+    <h3>Add key</h3>
+    <label class="field"><span>Key</span><input id="add-key" required placeholder="app:user:1" /></label>
+    <label class="field">
+      <span>Type</span>
+      <select id="add-type">
+        <option value="string">string</option>
+        <option value="hash">hash (JSON object)</option>
+        <option value="list">list (JSON array)</option>
+        <option value="set">set (JSON array)</option>
+      </select>
+    </label>
+    <label class="field"><span>Value</span><textarea id="add-value" class="code-input" rows="6" required placeholder="value or JSON"></textarea></label>
+    <label class="field"><span>TTL (seconds, -1 = forever)</span><input id="add-ttl" type="number" min="-1" step="1" value="-1" /></label>
+    <p id="add-msg" class="msg" hidden></p>
+    <div class="dialog-actions">
+      <button type="button" class="btn ghost" id="add-cancel">Cancel</button>
+      <button type="submit" class="btn">Save</button>
+    </div>
+  </form>
+</dialog>

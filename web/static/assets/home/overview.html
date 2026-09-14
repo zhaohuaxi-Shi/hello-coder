@@ -1,0 +1,68 @@
+<section class="view home-view">
+  <header class="view-head">
+    <div>
+      <h2>Overview</h2>
+      <p class="muted">Connection health by type. Click a card to open that client.</p>
+    </div>
+    <span class="home-version" id="app-version" hidden></span>
+  </header>
+  <div class="home-grid">
+    <button type="button" class="home-card" data-client="kafka">
+      <div class="home-card-top">
+        <span class="home-card-mark">K</span>
+        <div>
+          <h3>Kafka</h3>
+          <p class="muted">Brokers / Topics / Messages</p>
+        </div>
+      </div>
+      <div class="home-card-stats">
+        <div class="home-stat total">
+          <span class="home-stat-label">Total</span>
+          <span class="home-stat-value is-pending" data-stat="total">0</span>
+        </div>
+        <div class="home-stat bad">
+          <span class="home-stat-label">Abnormal</span>
+          <span class="home-stat-value is-pending" data-stat="abnormal">0</span>
+        </div>
+      </div>
+    </button>
+    <button type="button" class="home-card" data-client="es">
+      <div class="home-card-top">
+        <span class="home-card-mark">ES</span>
+        <div>
+          <h3>Elasticsearch</h3>
+          <p class="muted">Cluster / Indices / Docs</p>
+        </div>
+      </div>
+      <div class="home-card-stats">
+        <div class="home-stat total">
+          <span class="home-stat-label">Total</span>
+          <span class="home-stat-value is-pending" data-stat="total">0</span>
+        </div>
+        <div class="home-stat bad">
+          <span class="home-stat-label">Abnormal</span>
+          <span class="home-stat-value is-pending" data-stat="abnormal">0</span>
+        </div>
+      </div>
+    </button>
+    <button type="button" class="home-card" data-client="redis">
+      <div class="home-card-top">
+        <span class="home-card-mark">RDS</span>
+        <div>
+          <h3>Redis</h3>
+          <p class="muted">Standalone / Cluster / Sentinel</p>
+        </div>
+      </div>
+      <div class="home-card-stats">
+        <div class="home-stat total">
+          <span class="home-stat-label">Total</span>
+          <span class="home-stat-value is-pending" data-stat="total">0</span>
+        </div>
+        <div class="home-stat bad">
+          <span class="home-stat-label">Abnormal</span>
+          <span class="home-stat-value is-pending" data-stat="abnormal">0</span>
+        </div>
+      </div>
+    </button>
+  </div>
+</section>

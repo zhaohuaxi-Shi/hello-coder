@@ -1,0 +1,176 @@
+<section id="view-es-indices" class="view">
+  <header class="view-head">
+    <div class="view-title-row">
+      <button type="button" id="btn-back-conns" class="back-btn" title="Back" aria-label="Back">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M15.5 5.5 9 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div>
+        <h2 id="indices-title">Indices</h2>
+        <p class="muted" id="indices-sub"></p>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" id="btn-refresh-indices" class="btn ghost">Refresh</button>
+    </div>
+  </header>
+
+  <form id="index-filter" class="consume-bar">
+    <label class="field field-grow">
+      <span>Index</span>
+      <input id="index-q" type="search" placeholder="Search index name" autocomplete="off" />
+    </label>
+    <div class="consume-bar-actions">
+      <button type="submit" class="btn" id="btn-search-indices">Search</button>
+    </div>
+  </form>
+
+  <div class="docs-toolbar">
+    <button type="button" class="btn" id="btn-create-index">Add</button>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>UUID</th>
+          <th>Docs</th>
+          <th>Store</th>
+          <th>Health</th>
+          <th>Status</th>
+          <th>Aliases</th>
+          <th>Shards</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="index-tbody">
+        <tr><td colspan="9" class="empty">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<dialog id="dlg-structure" class="dialog wide">
+  <div class="dialog-body">
+    <header class="dialog-head">
+      <h3 id="dlg-structure-title">Index mapping</h3>
+      <button type="button" class="icon-btn light" id="structure-close" title="Close">✕</button>
+    </header>
+    <pre id="structure-body" class="code-block">Loading…</pre>
+  </div>
+</dialog>
+
+<div id="drawer-create-index" class="drawer" aria-hidden="true">
+  <div class="drawer-backdrop" data-create-close></div>
+  <aside class="drawer-panel drawer-panel-create-index" role="dialog" aria-modal="true" aria-labelledby="create-index-title">
+    <header class="drawer-head">
+      <div>
+        <h3 id="create-index-title">Add index</h3>
+        <p class="muted" id="create-index-sub"></p>
+      </div>
+      <div class="drawer-head-actions">
+        <button type="button" class="icon-btn" data-create-close title="Close">✕</button>
+      </div>
+    </header>
+    <div class="drawer-body create-index-body">
+      <label class="field">
+        <span>Index name</span>
+        <input id="create-index-name" type="text" placeholder="my-index" autocomplete="off" />
+      </label>
+      <div class="create-index-split">
+        <div class="create-index-fields">
+          <div id="create-index-field-rows" class="create-index-field-rows"></div>
+          <button type="button" class="btn ghost btn-icon-add" id="btn-add-index-field" title="Add field">+</button>
+        </div>
+        <div class="create-index-json">
+          <label class="field create-index-json-field">
+            <span>Index JSON</span>
+            <textarea id="create-index-json" class="code-input" rows="16" spellcheck="false" placeholder='{"settings":{},"mappings":{"properties":{}},"aliases":{}}'></textarea>
+          </label>
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn ghost" id="btn-gen-index-json">Generate</button>
+        <button type="button" class="btn" id="btn-confirm-create-index">Confirm</button>
+        <button type="button" class="btn ghost" data-create-close>Cancel</button>
+      </div>
+      <p id="create-index-msg" class="msg" hidden></p>
+    </div>
+  </aside>
+</div>
+
+<div id="drawer-more" class="drawer" aria-hidden="true">
+  <div class="drawer-backdrop" data-drawer-close></div>
+  <aside class="drawer-panel drawer-panel-ops" role="dialog" aria-modal="true" aria-labelledby="more-title">
+    <header class="drawer-head">
+      <div>
+        <h3 id="more-title">Index operations</h3>
+        <p class="muted" id="more-sub"></p>
+      </div>
+      <div class="drawer-head-actions">
+        <button type="button" class="icon-btn" data-drawer-close title="Close">✕</button>
+      </div>
+    </header>
+    <div class="drawer-body">
+      <div class="op-tabs" id="op-tabs">
+        <button type="button" class="btn ghost" data-op="clear">Clear docs</button>
+        <button type="button" class="btn ghost" data-op="alias">Set alias</button>
+        <button type="button" class="btn ghost" data-op="clone">Clone</button>
+        <button type="button" class="btn ghost" data-op="rebuild">Rebuild</button>
+      </div>
+
+      <p id="op-hint" class="muted op-hint">Select an operation above</p>
+
+      <div class="op-panel" data-op-panel="clear" hidden>
+        <p class="muted">Delete all documents in this index. Mapping and settings are kept.</p>
+        <div class="dialog-actions">
+          <button type="button" class="btn danger-btn" id="btn-op-clear">Clear docs</button>
+        </div>
+      </div>
+
+      <div class="op-panel" data-op-panel="alias" hidden>
+        <label class="field">
+          <span>Alias</span>
+          <input id="op-alias" placeholder="my-alias" />
+        </label>
+        <label class="check-row">
+          <input type="checkbox" id="op-alias-replace" />
+          <span>Replace existing aliases on this index</span>
+        </label>
+        <div class="dialog-actions">
+          <button type="button" class="btn" id="btn-op-alias">Save alias</button>
+        </div>
+      </div>
+
+      <div class="op-panel" data-op-panel="clone" hidden>
+        <label class="field">
+          <span>New index name</span>
+          <input id="op-clone-target" placeholder="my-index-clone" />
+        </label>
+        <p class="muted">Clone from the source index (source may be briefly set read-only).</p>
+        <div class="dialog-actions">
+          <button type="button" class="btn" id="btn-op-clone">Start clone</button>
+        </div>
+      </div>
+
+      <div class="op-panel" data-op-panel="rebuild" hidden>
+        <p class="muted">Flow: backup to temp index → delete original → recreate with structure below → restore data → delete temp.</p>
+        <label class="field">
+          <span>Current mappings (JSON)</span>
+          <textarea id="op-rebuild-mappings" class="code-input" rows="12" spellcheck="false"></textarea>
+        </label>
+        <label class="field">
+          <span>Settings (JSON)</span>
+          <textarea id="op-rebuild-settings" class="code-input" rows="8" spellcheck="false"></textarea>
+        </label>
+        <div class="dialog-actions">
+          <button type="button" class="btn" id="btn-op-rebuild">Start rebuild</button>
+        </div>
+      </div>
+
+      <p id="op-msg" class="msg" hidden></p>
+    </div>
+  </aside>
+</div>

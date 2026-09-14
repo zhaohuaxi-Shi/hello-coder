@@ -1,0 +1,168 @@
+<section id="view-es-docs" class="view">
+  <header class="view-head">
+    <div class="view-title-row">
+      <button type="button" id="btn-back-indices" class="back-btn" title="Back" aria-label="Back">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M15.5 5.5 9 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div>
+        <h2 id="docs-title">Docs</h2>
+        <p class="muted" id="docs-sub"></p>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" id="btn-refresh-docs" class="btn ghost">Refresh</button>
+    </div>
+  </header>
+
+  <form id="docs-filter" class="consume-bar docs-filter">
+    <div id="docs-conditions" class="docs-conditions"></div>
+    <div class="consume-bar-actions">
+      <button type="button" class="btn ghost" id="btn-custom-docs">Custom</button>
+      <button type="submit" class="btn" id="btn-search-docs">Search</button>
+      <button type="button" class="btn ghost" id="btn-reset-docs">Reset</button>
+    </div>
+  </form>
+  <p id="docs-status" class="msg" hidden></p>
+
+  <div class="docs-toolbar">
+    <button type="button" class="btn" id="btn-create-doc">Add</button>
+    <button type="button" class="btn ghost" id="btn-delete-docs">Delete</button>
+    <button type="button" class="btn ghost" id="btn-batch-edit-docs">Edit</button>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table table-docs">
+      <thead>
+        <tr id="docs-thead-row">
+          <th class="col-check"></th>
+          <th class="col-id">_id</th>
+        </tr>
+      </thead>
+      <tbody id="docs-tbody">
+        <tr><td class="empty">Set filters and click Search</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pager" id="docs-pager">
+    <label class="field pager-size">
+      <span>Page size</span>
+      <select id="docs-page-size">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </label>
+    <button type="button" class="btn ghost" id="docs-prev">Prev</button>
+    <span class="pager-info" id="docs-page-info"></span>
+    <button type="button" class="btn ghost" id="docs-next">Next</button>
+  </div>
+</section>
+
+<div id="drawer-edit-doc" class="drawer" aria-hidden="true">
+  <div class="drawer-backdrop" data-drawer-close></div>
+  <aside class="drawer-panel drawer-panel-doc" role="dialog" aria-modal="true" aria-labelledby="edit-doc-title">
+    <header class="drawer-head">
+      <div>
+        <h3 id="edit-doc-title">Edit document</h3>
+        <p class="muted" id="edit-doc-sub"></p>
+      </div>
+      <div class="drawer-head-actions">
+        <button type="button" class="icon-btn" data-drawer-close title="Close">✕</button>
+      </div>
+    </header>
+    <div class="drawer-body drawer-body-edit-doc">
+      <p class="edit-doc-id-line">_id <code id="edit-doc-id"></code></p>
+      <label class="field edit-doc-json-field">
+        <span>Document JSON</span>
+        <textarea id="edit-doc-json" class="code-input dsl-input edit-doc-json" rows="18" spellcheck="false" placeholder="{}"></textarea>
+      </label>
+      <div class="dialog-actions">
+        <button type="button" class="btn ghost" id="btn-format-edit-doc">Format</button>
+        <button type="button" class="btn" id="btn-update-doc">Save</button>
+      </div>
+      <p id="edit-doc-msg" class="msg" hidden></p>
+    </div>
+  </aside>
+</div>
+
+<div id="drawer-batch-edit" class="drawer" aria-hidden="true">
+  <div class="drawer-backdrop" data-drawer-close></div>
+  <aside class="drawer-panel drawer-panel-doc drawer-panel-batch" role="dialog" aria-modal="true" aria-labelledby="batch-edit-title">
+    <header class="drawer-head">
+      <div>
+        <h3 id="batch-edit-title">Batch edit</h3>
+        <p class="muted" id="batch-edit-sub"></p>
+      </div>
+      <div class="drawer-head-actions">
+        <button type="button" class="icon-btn" data-drawer-close title="Close">✕</button>
+      </div>
+    </header>
+    <div class="drawer-body">
+      <div id="batch-edit-rows" class="batch-edit-rows"></div>
+      <div class="dialog-actions">
+        <button type="button" class="btn" id="btn-run-batch-edit">执行</button>
+      </div>
+      <p id="batch-edit-msg" class="msg" hidden></p>
+    </div>
+  </aside>
+</div>
+
+<div id="drawer-dsl" class="drawer" aria-hidden="true">
+  <div class="drawer-backdrop" data-drawer-close></div>
+  <aside class="drawer-panel drawer-panel-ops" role="dialog" aria-modal="true" aria-labelledby="dsl-title">
+    <header class="drawer-head">
+      <div>
+        <h3 id="dsl-title">Custom DSL</h3>
+        <p class="muted" id="dsl-sub">Paste an ES query object or full search body</p>
+      </div>
+      <div class="drawer-head-actions">
+        <button type="button" class="icon-btn" data-drawer-close title="Close">✕</button>
+      </div>
+    </header>
+    <div class="drawer-body">
+      <label class="field">
+        <span>Query DSL</span>
+        <textarea id="dsl-input" class="code-input dsl-input" rows="18" spellcheck="false" placeholder='{\n  "query": {\n    "match_all": {}\n  }\n}'></textarea>
+      </label>
+      <div class="dialog-actions">
+        <button type="button" class="btn ghost" id="btn-format-dsl">Format</button>
+        <button type="button" class="btn" id="btn-search-dsl">Search</button>
+      </div>
+      <p id="dsl-msg" class="msg" hidden></p>
+    </div>
+  </aside>
+</div>
+
+<div id="drawer-create-doc" class="drawer" aria-hidden="true">
+  <div class="drawer-backdrop" data-drawer-close></div>
+  <aside class="drawer-panel drawer-panel-create" role="dialog" aria-modal="true" aria-labelledby="create-doc-title">
+    <header class="drawer-head">
+      <div>
+        <h3 id="create-doc-title">Add document</h3>
+        <p class="muted" id="create-doc-sub"></p>
+      </div>
+      <div class="drawer-head-actions">
+        <button type="button" class="icon-btn" data-drawer-close title="Close">✕</button>
+      </div>
+    </header>
+    <div class="drawer-body">
+      <label class="field">
+        <span>_id <span class="muted">optional</span></span>
+        <input id="create-doc-id" type="text" placeholder="Auto-generated if empty" autocomplete="off" />
+      </label>
+      <label class="field">
+        <span>Document JSON</span>
+        <textarea id="create-doc-json" class="code-input dsl-input" rows="18" spellcheck="false" placeholder="{}"></textarea>
+      </label>
+      <div class="dialog-actions">
+        <button type="button" class="btn ghost" id="btn-format-create-doc">Format</button>
+        <button type="button" class="btn" id="btn-save-doc">Save</button>
+      </div>
+      <p id="create-doc-msg" class="msg" hidden></p>
+    </div>
+  </aside>
+</div>

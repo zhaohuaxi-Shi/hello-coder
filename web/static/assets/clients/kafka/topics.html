@@ -1,0 +1,71 @@
+<section id="view-topics" class="view">
+  <header class="view-head">
+    <div class="view-title-row">
+      <button type="button" id="btn-back-conns" class="back-btn" title="Back" aria-label="Back">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M15.5 5.5 9 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div>
+        <h2 id="topics-title">Topics</h2>
+        <p class="muted" id="topics-sub"></p>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" id="btn-refresh-topics" class="btn ghost">Refresh</button>
+    </div>
+  </header>
+
+  <form id="topic-filter" class="consume-bar">
+    <label class="field field-grow">
+      <span>Topic</span>
+      <input id="topic-q" type="search" placeholder="Search topic name" autocomplete="off" />
+    </label>
+    <label class="field">
+      <span>Page size</span>
+      <select id="topic-page-size">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </label>
+    <div class="consume-bar-actions">
+      <button type="submit" class="btn" id="btn-search-topics">Search</button>
+    </div>
+  </form>
+
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Topic</th>
+          <th title="Currently retained messages">Messages</th>
+          <th title="Sum of log-end offsets (K / M / G)">Total</th>
+          <th>Partitions</th>
+          <th>Replication</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="topic-tbody">
+        <tr><td colspan="6" class="empty">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pager" id="topic-pager" hidden>
+    <button type="button" class="btn ghost" id="topic-prev">Prev</button>
+    <span class="pager-info" id="topic-page-info"></span>
+    <button type="button" class="btn ghost" id="topic-next">Next</button>
+  </div>
+</section>
+
+<dialog id="dlg-topic" class="dialog wide">
+  <div class="dialog-body">
+    <header class="dialog-head">
+      <h3 id="dlg-topic-title">Topic details</h3>
+      <button type="button" class="icon-btn light" id="topic-close">✕</button>
+    </header>
+    <div id="topic-detail-body" class="detail-stack">Loading…</div>
+  </div>
+</dialog>

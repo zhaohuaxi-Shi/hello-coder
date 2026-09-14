@@ -1,0 +1,25 @@
+# Normalize line endings in the repo (LF). Checkout keeps LF on all platforms.
+* text=auto eol=lf
+
+# Windows batch files need CRLF to run under cmd.exe.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary
+*.ico binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.syso binary
+*.zip binary
+*.tar.gz binary

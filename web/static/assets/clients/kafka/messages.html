@@ -1,0 +1,104 @@
+<section id="view-messages" class="view">
+  <header class="view-head">
+    <div class="view-title-row">
+      <button type="button" id="btn-back-topics" class="back-btn" title="Back" aria-label="Back">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M15.5 5.5 9 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div>
+        <h2 id="messages-title">Topic</h2>
+        <p class="muted" id="messages-sub"></p>
+      </div>
+    </div>
+  </header>
+
+  <div class="consume-bar">
+    <label class="field">
+      <span>Partition</span>
+      <select id="msg-partition">
+        <option value="">All</option>
+      </select>
+    </label>
+    <label class="field">
+      <span>From</span>
+      <select id="msg-from">
+        <option value="latest">Latest</option>
+        <option value="earliest">Earliest</option>
+        <option value="offset">Offset</option>
+      </select>
+    </label>
+    <label class="field" id="msg-offset-field" hidden>
+      <span>Offset</span>
+      <input id="msg-offset" type="number" min="0" value="0" />
+    </label>
+    <label class="field field-time">
+      <span>Start Time</span>
+      <input id="msg-since" type="text" placeholder="2026-09-10 08:27:00" autocomplete="off" spellcheck="false" />
+    </label>
+    <label class="field field-time">
+      <span>End Time</span>
+      <input id="msg-until" type="text" placeholder="2026-09-10 08:27:00" autocomplete="off" spellcheck="false" />
+    </label>
+    <label class="field">
+      <span>Limit</span>
+      <input id="msg-limit" type="number" min="1" max="200" value="20" />
+    </label>
+    <div class="consume-bar-actions">
+      <button type="button" class="btn" id="btn-consumer">Consumer</button>
+      <button type="button" class="btn ghost" id="btn-producer">Producer</button>
+    </div>
+  </div>
+  <p id="msg-status" class="msg" hidden></p>
+
+  <div class="table-wrap">
+    <table class="table table-messages">
+      <thead>
+        <tr>
+          <th class="col-message">Message</th>
+          <th class="col-time">Timestamp</th>
+          <th class="col-part">Part</th>
+        </tr>
+      </thead>
+      <tbody id="msg-tbody">
+        <tr><td colspan="3" class="empty">Choose options and click Consumer</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<dialog id="dlg-message" class="dialog wide">
+  <div class="dialog-body">
+    <header class="dialog-head">
+      <h3 id="dlg-message-title">Message</h3>
+      <button type="button" class="icon-btn light" id="message-close">✕</button>
+    </header>
+    <p class="muted" id="dlg-message-meta"></p>
+    <div class="dialog-actions message-detail-actions">
+      <button type="button" class="btn ghost" id="btn-format-json">Format JSON</button>
+    </div>
+    <pre id="dlg-message-body" class="message-full"></pre>
+    <p id="dlg-message-hint" class="msg" hidden></p>
+  </div>
+</dialog>
+
+<dialog id="dlg-produce" class="dialog dialog-produce">
+  <form method="dialog" id="form-produce" class="dialog-body">
+    <h3>Produce message</h3>
+    <div class="field-row">
+      <label class="field field-grow"><span>Key</span><input id="produce-key" placeholder="optional" /></label>
+      <label class="field field-part">
+        <span>Partition</span>
+        <select id="produce-partition">
+          <option value="">Auto</option>
+        </select>
+      </label>
+    </div>
+    <label class="field field-value"><span>Value</span><textarea id="produce-value" rows="12" required placeholder="message body"></textarea></label>
+    <p id="produce-msg" class="msg" hidden></p>
+    <div class="dialog-actions">
+      <button type="button" class="btn ghost" id="produce-cancel">Cancel</button>
+      <button type="submit" class="btn" id="produce-submit">Send</button>
+    </div>
+  </form>
+</dialog>
