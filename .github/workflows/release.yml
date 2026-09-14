@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Build packages
+        shell: pwsh
+        run: ./scripts/build.ps1
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/hello-coder-*-windows-amd64.zip
+            dist/hello-coder-*-linux-amd64.tar.gz
+          body: |
+            First release of Hello Coder.
+
+            - Kafka / Elasticsearch / Redis connection management
+            - Windows desktop (WebView2, no login) and Linux / LAN server mode (login required)
+            - Connection secrets stored in SQLite (RSA-OAEP in transit, AES-GCM at rest)
+
+            **Assets**
+            - `hello-coder-*-windows-amd64.zip` — double-click `hello-coder.exe`
+            - `hello-coder-*-linux-amd64.tar.gz` — `chmod +x hello-coder && ./hello-coder`
+
+            See [CHANGELOG.md](https://github.com/zhaohuaxi-Shi/hello-coder/blob/main/CHANGELOG.md) and [DISCLAIMER.md](https://github.com/zhaohuaxi-Shi/hello-coder/blob/main/DISCLAIMER.md).
+          draft: false
+          prerelease: false
+          fail_on_unmatched_files: true
